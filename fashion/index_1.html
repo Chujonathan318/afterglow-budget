@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>網店賣衫頭年預算</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F4F0;--surface:#FFFFFF;--ink:#26262E;--ink-2:#66666F;--line:#DEDDD8;
+  --accent:#4A55A2;--accent-soft:#E6E8F5;--rose:#B5636F;--rose-soft:#F5E6E8;--amber:#8A6414;--amber-soft:#F5EBD1;
+  --gov:#2A7F7F;--gov-soft:#DFF0F0;--input:#FBFBF9;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#18181C;--surface:#222228;--ink:#EAEAEE;--ink-2:#A4A4AE;--line:#35353D;
+  --accent:#9AA3E6;--accent-soft:#2A2E4A;--rose:#E39AA4;--rose-soft:#3A2A2D;--amber:#E0B85A;--amber-soft:#3A3220;
+  --gov:#7FC9C9;--gov-soft:#1F3A3A;--input:#1C1C21;
+}}
+:root[data-theme="dark"]{
+  --bg:#18181C;--surface:#222228;--ink:#EAEAEE;--ink-2:#A4A4AE;--line:#35353D;
+  --accent:#9AA3E6;--accent-soft:#2A2E4A;--rose:#E39AA4;--rose-soft:#3A2A2D;--amber:#E0B85A;--amber-soft:#3A3220;
+  --gov:#7FC9C9;--gov-soft:#1F3A3A;--input:#1C1C21;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans HK",-apple-system,"PingFang HK","Microsoft JhengHei",sans-serif;line-height:1.55;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding-block:28px 64px;padding-inline:16px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:56px;height:56px;border-radius:50%;flex:none;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;box-shadow:0 0 0 2px var(--surface),0 0 0 3px var(--line)}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:20px}
+h1{font-size:26px;margin:0;font-weight:700;letter-spacing:.01em;text-wrap:balance}
+h1[contenteditable]{cursor:text;border-bottom:1px dashed transparent;outline:none;padding-right:6px}
+h1[contenteditable]:hover{border-bottom-color:var(--line)}
+h1[contenteditable]:focus{border-bottom-color:var(--accent)}
+.sub{color:var(--ink-2);font-size:13.5px;margin-top:4px;max-width:60ch}
+.num{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:26px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.tile .lbl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.tile .val{font-size:22px;font-weight:500;margin-top:4px}
+.tile.hi{background:var(--accent-soft);border-color:transparent}
+.tile.hi .val{color:var(--accent)}
+.tile .note{font-size:12px;color:var(--ink-2);margin-top:2px}
+section{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:18px;overflow:hidden}
+section>h2{font-size:15px;margin:0;padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+section>h2 .tot{font-weight:500;font-size:16px}
+section>p.hint{margin:0;padding:10px 18px 0;font-size:13px;color:var(--ink-2)}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+td,th{padding:9px 18px;vertical-align:top;font-size:14px}
+th{text-align:left;font-weight:500;color:var(--ink-2);font-size:12px;letter-spacing:.05em;border-bottom:1px solid var(--line)}
+tr+tr td,tbody+tbody tr:first-child td{border-top:1px solid var(--line)}
+td.item{width:38%}
+td.item small{display:block;color:var(--ink-2);font-size:12.5px;margin-top:1px}
+td.amt{width:170px;white-space:nowrap}
+td.calc{color:var(--ink-2);font-size:13px}
+input[type=number]{width:140px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--input);color:var(--ink);font:inherit;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right}
+input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+input[type=text]{width:100%;max-width:260px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--input);color:var(--ink);font:inherit;font-size:14px}
+input[type=text].note{font-size:12.5px;max-width:100%;margin-top:4px}
+input[type=text]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.derived{display:inline-block;min-width:140px;text-align:right;padding:6px 8px;color:var(--ink-2)}
+.chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;margin-left:6px;vertical-align:middle}
+.chip.est{background:var(--amber-soft);color:var(--amber)}
+.chip.fix{background:var(--accent-soft);color:var(--accent)}
+.chip.gov{background:var(--gov-soft);color:var(--gov)}
+.chip.me{background:var(--rose-soft);color:var(--rose)}
+.govline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+.govline b{color:var(--gov)}
+tr.grp td{background:var(--bg);padding:8px 18px;font-size:12px;letter-spacing:.05em;color:var(--ink-2)}
+tr.grp .gwrap{display:flex;justify-content:space-between;gap:12px}
+tr.grp .gname{font-weight:700;color:var(--ink)}
+tr.grp+tr td{border-top:none}
+.modegrp{padding:14px 18px 0}
+.modegrp .mlabel{font-size:12px;letter-spacing:.05em;color:var(--ink-2);margin-bottom:6px}
+.modes{display:flex;gap:6px;flex-wrap:wrap}
+button{font:inherit;font-size:13px;padding:7px 12px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.mode{border-radius:99px;padding:7px 14px;font-weight:500;color:var(--ink-2)}
+button.mode.on{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) button.mode.on{color:#101226}}
+:root[data-theme="dark"] button.mode.on{color:#101226}
+.assume{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;padding:14px 18px}
+.assume label{font-size:13px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px;align-content:start}
+.assume label small{font-size:12px;line-height:1.4;color:var(--ink-2);opacity:.85}
+.assume label input[type=number]{width:100%;text-align:left}
+.be{padding:6px 18px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.be .k{font-size:12px;color:var(--ink-2)}
+.be .v{font-size:20px;font-weight:500}
+.be .v.rose{color:var(--rose)}
+.addbar{padding:10px 18px 14px;border-top:1px solid var(--line)}
+button.add{color:var(--accent);border-style:dashed}
+button.del{padding:4px 8px;font-size:12px;color:var(--rose);margin-left:8px}
+.stack{height:10px;border-radius:99px;overflow:hidden;display:flex;margin:12px 18px 6px;background:var(--line)}
+.stack i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:14px;padding:0 18px 14px;font-size:12.5px;color:var(--ink-2)}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.foot{font-size:12.5px;color:var(--ink-2);margin-top:10px}
+.bar{display:flex;gap:8px;flex-wrap:wrap}
+.waterfall{padding:4px 18px 14px}
+.wf{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.wf.total{border-bottom:none;font-weight:700;padding-top:8px}
+.wf .k{color:var(--ink-2)}
+@media (max-width:640px){.tiles{grid-template-columns:1fr 1fr}.tile .val{font-size:19px}td.item{width:auto}}
+</style>
+<style>html,body{margin:0}body{padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="brand"><div class="logo" aria-hidden="true">衫</div>
+  <div>
+    <h1 id="title" contenteditable="true" spellcheck="false" title="撳一下就可以改名">網店賣衫頭年預算</h1>
+    <div class="sub">未定品牌、未定貨源、未定平台都計到：先揀「貨源模式」同「銷售平台」，計算機會套用該組合嘅預設數字同隱藏唔適用嘅項目，之後逐項可改。黃色係估算、綠色係公價、藍色係直接交畀政府嘅費用。</div>
+  </div></div>
+  <div class="bar"><button id="reset" type="button">還原預設數字</button></div>
+</header>
+
+<div class="tiles">
+  <div class="tile"><div class="lbl">一次性開辦</div><div class="val num" id="t-setup">—</div><div class="note" id="t-setup-n">含首批存貨</div></div>
+  <div class="tile"><div class="lbl">每月固定</div><div class="val num" id="t-month">—</div><div class="note">未計貨、廣告、運費</div></div>
+  <div class="tile"><div class="lbl">每單淨貢獻</div><div class="val num" id="t-contrib">—</div><div class="note">賣一單真正剩返幾多</div></div>
+  <div class="tile hi"><div class="lbl">建議準備資金</div><div class="val num" id="t-reserve">—</div><div class="note" id="t-reserve-note">含緩衝</div></div>
+</div>
+
+<section>
+  <h2>模式同基本假設</h2>
+  <div class="modegrp"><div class="mlabel">貨源模式</div>
+    <div class="modes" role="tablist" data-group="src">
+      <button type="button" class="mode on" data-mode="stock">現貨入貨</button>
+      <button type="button" class="mode" data-mode="preorder">預訂制</button>
+      <button type="button" class="mode" data-mode="dropship">代購／一件代發</button>
+    </div><p class="hint" id="src-desc" style="padding:8px 0 0"></p></div>
+  <div class="modegrp"><div class="mlabel">銷售平台</div>
+    <div class="modes" role="tablist" data-group="plat">
+      <button type="button" class="mode on" data-mode="own">自家網店</button>
+      <button type="button" class="mode" data-mode="ig">IG／WhatsApp 落單</button>
+      <button type="button" class="mode" data-mode="mall">寄售平台（HKTVmall 類）</button>
+    </div><p class="hint" id="plat-desc" style="padding:8px 0 0"></p></div>
+  <div class="assume">
+    <label>籌備期（月）<input type="number" id="a-build" value="2" min="0" max="12" step="1"><small>由開公司到第一單：搵貨、影相、開網店</small></label>
+    <label id="f-stockm">首批備貨（等於幾多個月銷量）<input type="number" id="a-stockm" value="2" min="0" step="0.5"><small>現貨模式先適用；決定要壓幾多錢喺存貨</small></label>
+    <label id="f-unsold">季尾滯銷率（%）<input type="number" id="a-unsold" value="20" min="0" max="100" step="5"><small>入貨後賣唔出、要割價或報廢嘅比例；服裝新店常見 15–30%</small></label>
+    <label>資金緩衝（幾多個月固定支出）<input type="number" id="a-buffer" value="3" min="0" step="1"></label>
+  </div>
+</section>
+
+<section>
+  <h2><span>一、一次性開辦成本</span><span class="tot num" id="s-setup">—</span></h2>
+  <div class="tbl"><table>
+    <tr><th>項目</th><th>金額（HK$）</th><th>備註</th></tr>
+    <tbody id="setup-rows"></tbody>
+    <tbody id="setup-custom"></tbody>
+  </table></div>
+  <div class="addbar"><button type="button" class="add" data-list="su">＋ 加自訂項目</button></div>
+  <div class="govline"><span>其中政府收費（公司註冊、商業登記證、商標）</span><b class="num" id="gov-setup">—</b></div>
+  <div class="stack" id="stack"></div>
+  <div class="legend" id="legend"></div>
+</section>
+
+<section>
+  <h2><span>二、每月固定支出</span><span class="tot num" id="s-month">—</span></h2>
+  <div class="tbl"><table>
+    <tr><th>項目</th><th>每月（HK$）</th><th>備註</th></tr>
+    <tbody id="month-rows"></tbody>
+    <tbody id="month-custom"></tbody>
+  </table></div>
+  <div class="addbar"><button type="button" class="add" data-list="mo">＋ 加自訂項目</button></div>
+</section>
+
+<section>
+  <h2><span>三、每單經濟同回本點</span><span class="tot num" id="s-be">—</span></h2>
+  <div class="assume">
+    <label>平均每件售價（$）<input type="number" id="b-price" value="280" min="1" step="10"><small>全部款式平均</small></label>
+    <label>每單平均件數<input type="number" id="b-pcs" value="1.5" min="0.1" step="0.1"><small>買一件定順手加多件；服裝網店常見 1.3–1.8</small></label>
+    <label>貨成本佔售價（%）<input type="number" id="b-cogs" value="35" min="0" max="100" step="1"><small>入貨價 ÷ 售價，連入口運費同集運。韓國貨約 35–45%、廣州／淘寶約 20–30%、代購約 55–65%</small></label>
+    <label>支付手續費（%）<input type="number" id="b-pay" value="3" min="0" max="20" step="0.5"><small>信用卡、Apple Pay、PayMe 商戶等；FPS／轉數快近乎零</small></label>
+    <label>平台佣金（%）<input type="number" id="b-comm" value="0" min="0" max="50" step="1"><small>寄售平台每單抽成；自家網店係 0</small></label>
+    <label>包裝每單（$）<input type="number" id="b-pack" value="8" min="0" step="1"><small>膠袋／盒、感謝卡、貼紙</small></label>
+    <label>你付嘅運費每單（$）<input type="number" id="b-ship" value="0" min="0" step="5"><small>順豐到付就填 0；包郵就填平均運費（本地約 $25–40）</small></label>
+    <label>退換貨率（%）<input type="number" id="b-ret" value="15" min="0" max="100" step="1"><small>每次退換 = 雙程運費 + 重新包裝；服裝網店常見 10–20%</small></label>
+    <label>每單廣告成本 CAC（$）<input type="number" id="b-cac" value="60" min="0" step="10"><small>Meta／IG 廣告花費 ÷ 帶嚟嘅訂單數。新店 $50–120 好常見；每月品牌廣告另計喺固定支出</small></label>
+    <label>預計開業後每月訂單數<input type="number" id="b-orders" value="80" min="0" step="10"><small>用嚟計每月賺蝕同存貨，唔影響回本點</small></label>
+  </div>
+  <div class="waterfall" id="wf"></div>
+  <div class="be">
+    <div><div class="k">每單淨貢獻</div><div class="v num" id="be-contrib">—</div></div>
+    <div><div class="k">每月要幾多單先冚到固定支出</div><div class="v num rose" id="be-orders">—</div></div>
+    <div><div class="k">照你估嘅訂單數，每月淨賺／蝕</div><div class="v num" id="be-net">—</div></div>
+    <div><div class="k">回本期</div><div class="v num" id="be-payback">—</div><div class="k" id="be-payback-c"></div></div>
+  </div>
+  <p class="hint" style="padding-bottom:14px">每單淨貢獻 = 每單收入 − 貨成本 − 支付手續費 − 平台佣金 − 包裝 − 運費 − 退換損耗 − 廣告 CAC。回本點未計你自己人工，想有糧出就將月薪加落「每月固定」。</p>
+</section>
+
+<section>
+  <h2><span>四、頭 12 個月合計</span><span class="tot num" id="s-year">—</span></h2>
+  <div class="tbl"><table>
+    <tbody>
+      <tr><td class="item">一次性開辦成本</td><td class="amt num" id="y-setup">—</td><td class="calc">上面第一部分（含首批存貨）</td></tr>
+      <tr><td class="item">籌備期固定支出</td><td class="amt num" id="y-buildfix">—</td><td class="calc" id="y-buildfix-c"></td></tr>
+      <tr><td class="item">營運期固定支出</td><td class="amt num" id="y-opfix">—</td><td class="calc" id="y-opfix-c"></td></tr>
+      <tr><td class="item">營運期每單變動成本<small>貨、手續費、佣金、包裝、運費、退換、廣告</small></td><td class="amt num" id="y-var">—</td><td class="calc" id="y-var-c"></td></tr>
+      <tr id="y-unsold-row"><td class="item">滯銷存貨損失<small>入咗貨但賣唔出嘅部分</small></td><td class="amt num" id="y-unsold">—</td><td class="calc" id="y-unsold-c"></td></tr>
+      <tr><td class="item"><b>頭 12 個月總支出</b></td><td class="amt num" id="y-total"><b>—</b></td><td class="calc">未扣收入</td></tr>
+      <tr><td class="item">預計營運期收入</td><td class="amt num" id="y-rev">—</td><td class="calc" id="y-rev-c"></td></tr>
+      <tr><td class="item"><b>頭年淨現金流</b></td><td class="amt num" id="y-net"><b>—</b></td><td class="calc">收入 − 總支出</td></tr>
+      <tr><td class="item"><b>建議準備資金</b><small>總支出 − 收入 + 緩衝</small></td><td class="amt num" id="y-reserve"><b>—</b></td><td class="calc" id="y-reserve-c"></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<p class="foot">預設數字係 2026 年香港細型服裝網店嘅常見範圍。廣告 CAC、貨成本同退貨率係三個最影響結果嘅數，開業頭兩個月攞到真實數據就即刻改。你改過嘅數會留喺你呢部機嘅瀏覽器入面。</p>
+</div>
+
+<script>
+(function(){
+// [id, name, note, default, kind, group]
+const SETUP=[
+ ['govreg','公司註冊費＋商業登記證','公司註冊處約 $1,720（網上），稅務局商業登記證一年約 $2,200',3900,'gov','公司及品牌'],
+ ['cosec','公司秘書／註冊地址服務','私人服務，自己做可以慳',2000,'est','公司及品牌'],
+ ['brand','品牌名、logo、視覺設計','自己做可以近乎零',5000,'est','公司及品牌'],
+ ['tm','商標註冊（知識產權署）','每類別約 $2,000，服裝一類就夠；可以遲啲先做',2000,'gov','公司及品牌'],
+ ['shop','網店開設、模板、設定','Shopify／Shopline 模板、付款接駁、政策頁',4000,'est','網店及系統'],
+ ['domain','網域（一年）','.com 或 .hk',150,'fix','網店及系統'],
+ ['mallfee','平台入駐／上架費','部分寄售平台收一次性費用',3000,'est','網店及系統'],
+ ['stock','首批存貨','按預計月訂單 × 件數 × 貨成本 × 備貨月數自動計',null,'calc','首批存貨'],
+ ['sample','樣板／試單','預訂或代購模式：買幾件實物試質素同影相',3000,'est','首批存貨'],
+ ['gear','攝影燈、背景、腳架','自己影相用',3000,'est','內容製作'],
+ ['photo','首批產品相／模特兒','外判攝影或搵朋友做模特',4000,'est','內容製作'],
+ ['pack','首批包裝物料','袋／盒、感謝卡、貼紙',2500,'est','包裝及存倉'],
+ ['shelf','層架、收納、掛架','屋企存貨都要',1500,'est','包裝及存倉'],
+ ['contin','應急預備（開辦成本 10%）','唔計存貨',null,'calc','應急預備'],
+];
+const MONTH=[
+ ['plat','網店平台月費','Shopline／Shopify 基本計劃',350,'est','平台及工具'],
+ ['tools','設計、排程、客服工具','Canva、排程 app 等',200,'est','平台及工具'],
+ ['ads','品牌廣告／KOL（固定部分）','唔直接帶單嘅曝光、送禮合作；直接帶單嘅廣告用每單 CAC 計',2000,'est','廣告及內容'],
+ ['content','內容製作','每月新款影相、短片',1500,'est','廣告及內容'],
+ ['storage','存倉（迷你倉）','屋企放得落就填 0',800,'est','存倉及物流'],
+ ['acct','會計＋報稅攤分','一年審計約 $5–8k ＋ 報稅 ＋ 記帳，除 12 個月；自己記帳可減至 $500',800,'est','營運'],
+ ['ins','保險攤分','公眾責任／貨物',200,'est','營運'],
+ ['misc','雜項','文具、退貨處理、試身',500,'est','營運'],
+ ['pt','兼職幫手（包貨、客服）','',0,'est','人手'],
+ ['salary','你自己想攞嘅月薪','預設 0：頭年多數人唔出糧畀自己',0,'est','人手'],
+];
+const GROUP_COLORS={'公司及品牌':'var(--gov)','網店及系統':'var(--ink-2)','首批存貨':'var(--accent)','內容製作':'var(--rose)','包裝及存倉':'var(--amber)','應急預備':'var(--line)','自訂':'var(--rose-soft)'};
+
+const SRC={
+ stock:{desc:'先入貨後賣。毛利最高、出貨最快，但資金壓喺存貨，尺碼顏色賣唔齊就變滯銷。',
+  assume:{'a-stockm':2,'a-unsold':20,'a-build':2},vals:{'b-cogs':35},hide:['su-sample']},
+ preorder:{desc:'收單先向供應商落單，客要等 1–3 星期。冇死貨、資金輕，但轉換率低啲、要處理催單同退款。',
+  assume:{'a-stockm':0,'a-unsold':3,'a-build':1},vals:{'b-cogs':35,'mo-storage':0},hide:['su-stock','su-shelf']},
+ dropship:{desc:'供應商直接寄畀客，你唔碰貨。零存貨、最易起步，但貨成本高、控制唔到品質同速度，退貨麻煩。',
+  assume:{'a-stockm':0,'a-unsold':0,'a-build':1},vals:{'b-cogs':60,'b-ship':0,'mo-storage':0,'b-ret':10},hide:['su-stock','su-shelf','su-pack','mo-storage']}
+};
+const PLAT={
+ own:{desc:'Shopify／Shopline／Boutir 自家網店。要俾平台月費同支付手續費，但品牌、客戶數據同定價全部自己控制。',
+  vals:{'b-pay':3,'b-comm':0,'mo-plat':350,'su-shop':4000},hide:['su-mallfee']},
+ ig:{desc:'IG／WhatsApp 直接落單，FPS 或 PayMe 收錢。近乎零平台成本，但要人手對數同跟單，難以規模化。',
+  vals:{'b-pay':0.5,'b-comm':0,'mo-plat':0,'su-shop':500},hide:['su-mallfee','mo-plat']},
+ mall:{desc:'HKTVmall 類寄售平台。平台有現成流量、可以減廣告，但每單抽佣 20–25%，仲要跟平台嘅上架同物流規則。',
+  vals:{'b-pay':0,'b-comm':22,'mo-plat':0,'su-shop':1000,'b-cac':30,'mo-ads':1000},hide:['mo-plat']}
+};
+
+const $=id=>document.getElementById(id);
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-HK');
+const KEY='fashion-budget-v1';
+let saved={};try{saved=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){saved={}}
+
+function groupRow(tbody,prefix,group){
+  const tr=document.createElement('tr');tr.className='grp';
+  tr.innerHTML='<td colspan="3"><div class="gwrap"><span class="gname">'+group+'</span><span class="gsum num" id="'+prefix+'-g-'+group+'">—</span></div></td>';
+  tbody.appendChild(tr);
+}
+function row(tbody,def,prefix){
+  const [id,name,note,val,kind]=def;
+  const tr=document.createElement('tr');tr.id=prefix+'-row-'+id;
+  const td1=document.createElement('td');td1.className='item';
+  td1.innerHTML=name+(kind==='est'?'<span class="chip est">估算</span>':kind==='fix'?'<span class="chip fix">公價</span>':kind==='gov'?'<span class="chip gov">政府收費</span>':'')+(note?'<small>'+note+'</small>':'');
+  const td2=document.createElement('td');td2.className='amt';
+  if(kind==='calc'){const s=document.createElement('span');s.className='derived num';s.id=prefix+'-'+id;s.textContent='—';td2.appendChild(s);}
+  else{const inp=document.createElement('input');inp.type='number';inp.min='0';inp.step='100';inp.id=prefix+'-'+id;inp.value=(saved[inp.id]!=null?saved[inp.id]:val);td2.appendChild(inp);}
+  const td3=document.createElement('td');td3.className='calc';td3.id=prefix+'-'+id+'-c';
+  tr.append(td1,td2,td3);tbody.appendChild(tr);
+}
+let lastG=null;SETUP.forEach(d=>{if(d[5]!==lastG){groupRow($('setup-rows'),'su',d[5]);lastG=d[5]}row($('setup-rows'),d,'su')});
+lastG=null;MONTH.forEach(d=>{if(d[5]!==lastG){groupRow($('month-rows'),'mo',d[5]);lastG=d[5]}row($('month-rows'),d,'mo')});
+['a-build','a-stockm','a-unsold','a-buffer','b-price','b-pcs','b-cogs','b-pay','b-comm','b-pack','b-ship','b-ret','b-cac','b-orders'].forEach(id=>{if(saved[id]!=null)$(id).value=saved[id]});
+
+const v=id=>{const el=$(id);if(!el)return 0;const tr=el.closest('tr');if(tr&&tr.hidden)return 0;const n=parseFloat(el.value);return isNaN(n)?0:n};
+
+// ---- modes ----
+let mode={src:(saved.__src&&SRC[saved.__src])?saved.__src:'stock',plat:(saved.__plat&&PLAT[saved.__plat])?saved.__plat:'own'};
+const ALL_HIDE=[...new Set([...Object.values(SRC),...Object.values(PLAT)].flatMap(m=>m.hide))];
+function applyModes(reset){
+  const S=SRC[mode.src],P=PLAT[mode.plat];
+  document.querySelectorAll('.modes[data-group="src"] button').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode.src));
+  document.querySelectorAll('.modes[data-group="plat"] button').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode.plat));
+  $('src-desc').textContent=S.desc;$('plat-desc').textContent=P.desc;
+  const hide=new Set([...S.hide,...P.hide]);
+  ALL_HIDE.forEach(id=>{const tr=$(id.replace('-','-row-'));if(tr)tr.hidden=hide.has(id)});
+  $('f-stockm').hidden=mode.src!=='stock';$('f-unsold').hidden=mode.src==='dropship';
+  $('y-unsold-row').hidden=mode.src==='dropship';
+  $('t-setup-n').textContent=mode.src==='stock'?'含首批存貨':'唔使壓存貨';
+  if(reset){
+    SETUP.forEach(d=>{if(d[4]!=='calc'&&$('su-'+d[0]))$('su-'+d[0]).value=d[3]});
+    MONTH.forEach(d=>{if(d[4]!=='calc'&&$('mo-'+d[0]))$('mo-'+d[0]).value=d[3]});
+    const base={'b-price':280,'b-pcs':1.5,'b-cogs':35,'b-pay':3,'b-comm':0,'b-pack':8,'b-ship':0,'b-ret':15,'b-cac':60,'b-orders':80,'a-buffer':3};
+    Object.entries(base).forEach(([k,val])=>{$(k).value=val});
+    Object.entries(S.assume).forEach(([k,val])=>{if($(k))$(k).value=val});
+    Object.entries(S.vals).forEach(([k,val])=>{if($(k))$(k).value=val});
+    Object.entries(P.vals).forEach(([k,val])=>{if($(k))$(k).value=val});
+  }
+}
+document.querySelectorAll('.modes button').forEach(b=>b.addEventListener('click',()=>{mode[b.closest('.modes').dataset.group]=b.dataset.mode;applyModes(true);calc();}));
+
+// ---- custom items ----
+const custom={su:Array.isArray(saved.__custom_su)?saved.__custom_su:[],mo:Array.isArray(saved.__custom_mo)?saved.__custom_mo:[]};
+function renderCustom(list){
+  const tbody=$(list==='su'?'setup-custom':'month-custom');tbody.innerHTML='';
+  if(custom[list].length)groupRow(tbody,list,'自訂');
+  custom[list].forEach((it,i)=>{
+    const tr=document.createElement('tr');tr.className='custom';
+    const td1=document.createElement('td');td1.className='item';
+    const name=document.createElement('input');name.type='text';name.placeholder='項目名稱';name.value=it.name||'';name.id=list+'-cname-'+i;
+    const chip=document.createElement('span');chip.className='chip me';chip.textContent='自訂';
+    const note=document.createElement('input');note.type='text';note.className='note';note.placeholder='備註（可留空）';note.value=it.note||'';
+    td1.append(name,chip,note);
+    const td2=document.createElement('td');td2.className='amt';
+    const amt=document.createElement('input');amt.type='number';amt.min='0';amt.step='100';amt.value=it.amt||0;amt.id=list+'-camt-'+i;td2.appendChild(amt);
+    const td3=document.createElement('td');td3.className='calc';
+    const del=document.createElement('button');del.type='button';del.className='del';del.textContent='刪除';
+    del.addEventListener('click',()=>{custom[list].splice(i,1);renderCustom(list);calc();});
+    td3.appendChild(del);
+    name.addEventListener('input',()=>{it.name=name.value;calc();});
+    note.addEventListener('input',()=>{it.note=note.value;calc();});
+    amt.addEventListener('input',()=>{it.amt=amt.value;calc();});
+    tr.append(td1,td2,td3);tbody.appendChild(tr);
+  });
+}
+function customSum(list){return custom[list].reduce((s,it)=>{const n=parseFloat(it.amt);return s+(isNaN(n)?0:n)},0)}
+document.querySelectorAll('button.add').forEach(b=>b.addEventListener('click',()=>{
+  const list=b.dataset.list;custom[list].push({name:'',note:'',amt:0});renderCustom(list);calc();
+  const el=$(list+'-cname-'+(custom[list].length-1));if(el)el.focus();
+}));
+renderCustom('su');renderCustom('mo');
+applyModes(false);
+
+function calc(){
+  const build=v('a-build'),buf=v('a-buffer'),stockm=mode.src==='stock'?v('a-stockm'):0,unsold=mode.src==='dropship'?0:v('a-unsold')/100;
+  const price=v('b-price'),pcs=v('b-pcs'),cogs=v('b-cogs')/100,pay=v('b-pay')/100,comm=v('b-comm')/100,pack=v('b-pack'),ship=v('b-ship'),ret=v('b-ret')/100,cac=v('b-cac'),orders=v('b-orders');
+
+  // per-order economics
+  const aov=price*pcs;
+  const cCogs=aov*cogs,cPay=aov*pay,cComm=aov*comm;
+  const shipEach=ship>0?ship:30; // for returns, a return costs real shipping even if customer normally pays
+  const cRet=ret*(shipEach*2+pack);
+  const varCost=cCogs+cPay+cComm+pack+ship+cRet+cac;
+  const contrib=aov-varCost;
+  $('wf').innerHTML=[['每單收入（'+pcs+' 件 × $'+price+'）',aov,1],['− 貨成本 '+Math.round(cogs*100)+'%',-cCogs],['− 支付手續費',-cPay],['− 平台佣金',-cComm],['− 包裝',-pack],['− 運費',-ship],['− 退換損耗（'+Math.round(ret*100)+'% × 雙程運費＋包裝）',-cRet],['− 廣告 CAC',-cac]]
+    .map(r=>'<div class="wf"><span class="k">'+r[0]+'</span><span class="num">'+(r[1]<0?'−':'')+fmt(Math.abs(r[1]))+'</span></div>').join('')
+    +'<div class="wf total"><span>= 每單淨貢獻</span><span class="num" style="color:'+(contrib>0?'var(--accent)':'var(--rose)')+'">'+(contrib<0?'−':'')+fmt(Math.abs(contrib))+'</span></div>';
+
+  // monthly fixed
+  let month=0;MONTH.forEach(d=>{month+=v('mo-'+d[0])});month+=customSum('mo');
+  $('s-month').textContent=fmt(month)+' / 月';$('t-month').textContent=fmt(month);
+
+  // setup
+  const stock=orders*pcs*price*cogs*stockm;
+  $('su-stock').textContent=fmt(stock);$('su-stock-c').textContent=orders+' 單 × '+pcs+' 件 × $'+Math.round(price*cogs)+' × '+stockm+' 個月';
+  let base=0;SETUP.forEach(d=>{if(d[4]!=='calc')base+=v('su-'+d[0])});
+  const suCustom=customSum('su');base+=suCustom;
+  const contin=base*0.10;$('su-contin').textContent=fmt(contin);
+  const setup=base+stock+contin;
+  $('s-setup').textContent=fmt(setup);$('t-setup').textContent=fmt(setup);$('y-setup').textContent=fmt(setup);
+  const govSetup=SETUP.filter(d=>d[4]==='gov').reduce((s,d)=>s+v('su-'+d[0]),0);
+  $('gov-setup').textContent=fmt(govSetup);
+
+  const valOf=(prefix,d)=>{if(d[4]!=='calc')return v(prefix+'-'+d[0]);if(d[0]==='stock')return stock;if(d[0]==='contin')return contin;return 0};
+  const sumGroups=(defs,prefix)=>{const m={};defs.forEach(d=>{m[d[5]]=(m[d[5]]||0)+valOf(prefix,d)});Object.keys(m).forEach(g=>{const el=$(prefix+'-g-'+g);if(el)el.textContent=fmt(m[g])});return m};
+  const suG=sumGroups(SETUP,'su');sumGroups(MONTH,'mo');
+  ['su','mo'].forEach(l=>{const el=$(l+'-g-自訂');if(el)el.textContent=fmt(customSum(l))});
+  const groups=Object.keys(suG).map(g=>[g,suG[g],GROUP_COLORS[g]||'var(--line)']);if(suCustom>0)groups.push(['自訂',suCustom,GROUP_COLORS['自訂']]);
+  $('stack').innerHTML=groups.map(g=>'<i style="width:'+(setup?g[1]/setup*100:0)+'%;background:'+g[2]+'" title="'+g[0]+'"></i>').join('');
+  $('legend').innerHTML=groups.filter(g=>g[1]>0).map(g=>'<span><b style="background:'+g[2]+'"></b>'+g[0]+' '+fmt(g[1])+' ('+(setup?Math.round(g[1]/setup*100):0)+'%)</span>').join('');
+
+  // breakeven
+  $('be-contrib').textContent=(contrib<0?'−':'')+fmt(Math.abs(contrib));$('t-contrib').textContent=(contrib<0?'−':'')+fmt(Math.abs(contrib));
+  $('t-contrib').style.color=contrib>0?'':'var(--rose)';
+  const beo=contrib>0?month/contrib:Infinity;
+  $('be-orders').textContent=isFinite(beo)?Math.ceil(beo)+' 單':'每單已經蝕';
+  const net=orders*contrib-month;
+  $('be-net').textContent=(net>=0?'+':'−')+fmt(Math.abs(net));$('be-net').style.color=net>=0?'var(--accent)':'var(--rose)';
+  $('s-be').textContent='回本點 '+(isFinite(beo)?Math.ceil(beo)+' 單/月':'—');
+
+  // year
+  const opMonths=Math.max(0,12-build);
+  const buildFix=build*month,opFix=opMonths*month;
+  const yVar=opMonths*orders*varCost;
+  const yUnsold=mode.src==='dropship'?0:(stock+opMonths*orders*cCogs)*unsold;
+  const total=setup+buildFix+opFix+yVar+yUnsold;
+  const rev=opMonths*orders*aov;
+  const ynet=rev-total;
+  const reserve=Math.max(0,total-rev)+buf*month;
+  $('y-buildfix').textContent=fmt(buildFix);$('y-buildfix-c').textContent=build+' 個月 × '+fmt(month);
+  $('y-opfix').textContent=fmt(opFix);$('y-opfix-c').textContent=opMonths+' 個月 × '+fmt(month);
+  $('y-var').textContent=fmt(yVar);$('y-var-c').textContent=opMonths+' 個月 × '+orders+' 單 × '+fmt(varCost);
+  $('y-unsold').textContent=fmt(yUnsold);$('y-unsold-c').textContent='全年入貨 × '+Math.round(unsold*100)+'%';
+  $('y-total').innerHTML='<b>'+fmt(total)+'</b>';$('s-year').textContent=fmt(total);
+  $('y-rev').textContent=fmt(rev);$('y-rev-c').textContent=opMonths+' 個月 × '+orders+' 單 × '+fmt(aov);
+  $('y-net').innerHTML='<b style="color:'+(ynet>=0?'var(--accent)':'var(--rose)')+'">'+(ynet>=0?'+':'−')+fmt(Math.abs(ynet))+'</b>';
+  $('y-reserve').innerHTML='<b>'+fmt(reserve)+'</b>';$('y-reserve-c').textContent='緩衝 '+buf+' 個月 = '+fmt(buf*month);
+  $('t-reserve').textContent=fmt(reserve);$('t-reserve-note').textContent='含 '+buf+' 個月緩衝';
+
+  // payback
+  const sunk=setup+buildFix;const pb=$('be-payback'),pbc=$('be-payback-c');
+  const netAfterUnsold=net-(orders*cCogs*unsold);
+  if(netAfterUnsold>0){const m=sunk/netAfterUnsold;pb.textContent=(m<1?'少於 1':Math.ceil(m))+' 個月';pb.style.color=m<=24?'var(--accent)':'var(--amber)';pbc.textContent='(開辦 '+fmt(setup)+' ＋ 籌備期固定 '+fmt(buildFix)+') ÷ 每月淨賺（扣滯銷）'+fmt(netAfterUnsold);}
+  else{pb.textContent='回唔到本';pb.style.color='var(--rose)';pbc.textContent='每月淨賺要係正數——減 CAC、加件數／售價、或者減固定支出';}
+
+  const data={};document.querySelectorAll('input[type=number]').forEach(i=>{if(!/-camt-/.test(i.id))data[i.id]=i.value});
+  data.__custom_su=custom.su;data.__custom_mo=custom.mo;data.__src=mode.src;data.__plat=mode.plat;
+  const tEl=$('title');if(tEl)data.__title=tEl.textContent.trim();
+  try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}
+}
+document.querySelectorAll('input[type=number]').forEach(i=>i.addEventListener('input',calc));
+$('reset').addEventListener('click',()=>{try{localStorage.removeItem(KEY)}catch(e){}location.reload()});
+const T=$('title');if(saved.__title)T.textContent=saved.__title;document.title=T.textContent;
+T.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();T.blur();}});
+T.addEventListener('blur',()=>{const t=T.textContent.trim()||'網店賣衫頭年預算';T.textContent=t;document.title=t;calc();});
+calc();
+})();
+</script>
+
+</body>
+</html>
